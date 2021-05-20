@@ -12,9 +12,7 @@ export function exponentToBigDecimal(decimals: i32): BigDecimal {
   return bd
 }
 
-export let mantissaFactor = 18
 export let TokenDecimals = 8
-export let mantissaFactorBD: BigDecimal = exponentToBigDecimal(18)
 export let TokenDecimalsBD: BigDecimal = exponentToBigDecimal(8)
 export let zeroBD = BigDecimal.fromString('0')
 
@@ -22,13 +20,12 @@ export function createAccountToken(
   TokenStatsID: string,
   symbol: string,
   account: string,
-  marketID: string,
+  assetID: string,
 ): AccountToken {
   let TokenStats = new AccountToken(TokenStatsID)
   TokenStats.symbol = symbol
-  TokenStats.market = marketID
+  TokenStats.asset = assetID
   TokenStats.account = account
-  TokenStats.accrualBlockNumber = BigInt.fromI32(0)
   TokenStats.TokenBalance = zeroBD
   return TokenStats
 }
@@ -40,18 +37,18 @@ export function createAccount(accountID: string): Account {
 }
 
 export function updateCommonTokenStats(
-  marketID: string,
-  marketSymbol: string,
+  assetID: string,
+  assetSymbol: string,
   accountID: string,
   tx_hash: Bytes,
   timestamp: BigInt,
   blockNumber: BigInt,
   logIndex: BigInt,
 ): AccountToken {
-  let TokenStatsID = marketID.concat('-').concat(accountID)
+  let TokenStatsID = assetID.concat('-').concat(accountID)
   let TokenStats = AccountToken.load(TokenStatsID)
   if (TokenStats == null) {
-    TokenStats = createAccountToken(TokenStatsID, marketSymbol, accountID, marketID)
+    TokenStats = createAccountToken(TokenStatsID, assetSymbol, accountID, assetID)
   }
   getOrCreateAccountTokenTransaction(
     TokenStatsID,
@@ -60,7 +57,6 @@ export function updateCommonTokenStats(
     blockNumber,
     logIndex,
   )
-  TokenStats.accrualBlockNumber = blockNumber
   return TokenStats as AccountToken
 }
 
