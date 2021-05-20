@@ -17,7 +17,7 @@ Given up to a 1000 wallet addresses, and a block ID, we will return the token ba
     - Balance at or near timestamp
     - Balance at or near block number
 
-### For SimpleID / Valve Fi
+### For DApps
 
 *Each Token in our subgraph should have its own statistics entity that computes the following items to address the underlined information.*
 
