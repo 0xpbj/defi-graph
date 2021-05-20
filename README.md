@@ -25,7 +25,7 @@ Breakout: high utilization of an asset
 
 - Can use either or both transaction count and amount mentioned below.
 
-# of Transactions in asset daily/weekly/monthly
+Number of Transactions in asset daily/weekly/monthly
 
 - Transaction Count
     - last block
