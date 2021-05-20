@@ -1,19 +1,72 @@
-# Compound-V2-subgraph
+# DeFi Subgraphs
 
-[Compound](https://compound.finance/) is an open-source protocol for algorithmic, efficient Money Markets on the Ethereum blockchain. This Subgraph ingests the V2 contracts of the protocol.
+## Problem
+Given up to a 1000 wallet addresses, and a block ID, we will return the token balances of the DeFi pulse index for those wallets. You can also cut it by category: lending, DEXs, Derivatives, Assets.
 
-## Networks and Performance
+## Key Features
 
-This subgraph can be found on The Graph Hosted Service at https://thegraph.com/explorer/subgraph/graphprotocol/compound-v2.
+### For The Graph
 
-You can also run this subgraph locally, if you wish. Instructions for that can be found in [The Graph Documentation](https://thegraph.com/docs/quick-start).
+1. GraphQL (GQL) API that allows balance fetches for 1000 wallet addresses.
+2. Default return behavior is the balance of all tokens in the Defi Pulse Index (DPI)
+3. Optional return behavior by category. (Only return the balances of tokens in a segment or category of the DPI.  e.g. Lending, DEXs, Derivatives, Assets ...)
+4. Statistics
+    - Top 10 addresses & balances for each DPI token.
+5. Threshold filtering.  e.g. Results greater, less than, or between specified balance(s).
+6. [Questionable if Possible] Historic data.
+    - Balance at or near timestamp
+    - Balance at or near block number
 
-### ABI
+### For SimpleID / Valve Fi
 
-The ABI used is `ctoken.json`. It is a stripped down version of the full abi provided by compound, that satisfies the calls we need to make for both cETH and cERC20 contracts. This way we can use 1 ABI file, and one mapping for cETH and cERC20.
+*Each Token in our subgraph should have its own statistics entity that computes the following items to address the underlined information.*
 
-## Getting started with querying
+Breakout: high utilization of an asset
 
-Below are a few ways to show how to query the Compound V2 Subgraph for data. The queries show most of the information that is queryable, but there are many other filtering options that can be used, just check out the [querying api](https://github.com/graphprotocol/graph-node/blob/master/docs/graphql-api.md).
+- Can use either or both transaction count and amount mentioned below.
 
-You can also see the saved queries on the hosted service for examples.
+# of Transactions in asset daily/weekly/monthly
+
+- Transaction Count
+    - last block
+    - last three blocks
+    - last hour
+    - day
+    - week
+    - month
+
+Large fund movements, see rug pulls, fund drains, exploits
+
+- Total Transaction Amount (abs. value of inflow/outflow)
+    - last block
+    - last three blocks
+    - last hour
+    - day
+
+Drastic changes in # of wallets holding asset
+
+- Holders count (the current number of wallets holding the asset)
+    - last block
+    - last three blocks
+    - last hour
+    - day
+
+Top holders of asset
+
+- Top X holders list
+
+Top inflows of asset
+
+- Top X inflows
+    - all time
+    - hour
+    - day
+    - month
+
+Top outflows of asset
+
+- Top X outflows
+    - all time
+    - hour
+    - day
+    - month
